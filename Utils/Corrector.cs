@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 {
@@ -15,7 +17,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             foreach (XElement elt in root.Elements("TopLevelEntity"))
             {
                 elt.Element(Namespace + "Fields").AddFields();
-                //elt.Element(Namespace + "Mappings")?.SortMapings();
+                elt.Element(Namespace + "Mappings")?.AddMapings();
             }
         }
 
@@ -27,9 +29,30 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
                 if (fieldDefinition == null)
                 {
                     FieldsElement.Add(new XElement(
-                        "Field", 
-                        new XAttribute("name", fieldName), 
+                        "Field",
+                        new XAttribute("name", fieldName),
                         new XAttribute("type", "DateTimeValue")
+                        ));
+                }
+            }
+        }
+
+        private static void AddMapings(this XElement MappingsElement)
+        {
+            IEnumerable<XElement> mapingsToObjects = MappingsElement.Elements("Mapping").Where(e => e.Elements("To").Count() > 0);
+
+            Lazy<string> objectToMap = new Lazy<string>(() =>
+            mapingsToObjects.Select(e => e.Element("To").Attribute("object")).GroupBy(a => a.Value).OrderByDescending(g => g.Count()).First().Key);
+
+            foreach (string fieldName in mandatoryDateTimeFields)
+            {
+                XElement fieldMapping = mapingsToObjects.SingleOrDefault(e => e.Attribute("field").Value == fieldName);
+                if (fieldMapping == null)
+                {
+                    MappingsElement.Add(new XElement(
+                        "Mapping",
+                        new XAttribute("field", fieldName),
+                        new XElement("To", new XAttribute("object", objectToMap), new XAttribute("field", fieldName))
                         ));
                 }
             }
