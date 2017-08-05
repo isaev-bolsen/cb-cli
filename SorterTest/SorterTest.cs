@@ -10,7 +10,7 @@ namespace SorterTest
     public class SorterTest
     {
         [TestMethod]
-        public void TetSort1()
+        public void TestSort1()
         {
             XDocument Doc = XDocument.Load("Sample1.xml");
             Doc.Sort();
