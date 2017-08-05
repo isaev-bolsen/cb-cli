@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\Corrector.cs" />
     <Compile Include="Utils\Sorter.cs" />
     <Compile Include="Verbs\GetSchema.cs" />
     <Compile Include="Program.cs" />
