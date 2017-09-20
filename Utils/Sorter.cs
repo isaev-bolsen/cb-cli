@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System;
 
 namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 {
     static class Sorter
     {
+        public static Func<XElement, string, XElement> CorrectFieldName = (e, n) => e;
+
         public static void Sort(this XDocument original)
         {
             XElement root = original.Elements().Single();
@@ -25,7 +28,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 
         private static void SortFields(this XElement FieldsElement)
         {
-            IEnumerable<XElement> Fields = FieldsElement.Elements().OrderBy(GetName).ToArray();
+            IEnumerable<XElement> Fields = FieldsElement.Elements().Select(e => CorrectFieldName(e, "name")).OrderBy(GetName).ToArray();
             foreach (XElement e in Fields) e.Remove();
             FieldsElement.Add(Fields);
         }
@@ -37,7 +40,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 
         private static void SortMapings(this XElement MappingsElement)
         {
-            IEnumerable<XElement> Mappings = MappingsElement.Elements().OrderBy(GetField).ToArray();
+            IEnumerable<XElement> Mappings = MappingsElement.Elements().Select(e => CorrectFieldName(e, "field")).OrderBy(GetField).ToArray();
             foreach (XElement e in Mappings)
             {
                 SortMapings(e);
