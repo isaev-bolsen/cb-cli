@@ -7,7 +7,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 {
     static class Sorter
     {
-        public static Action<XAttribute> CorrectFieldName = a => { };
+        public static Action<XAttribute> CorrectFieldName = FieldNameCorrector.CorrectAttributeValue;
 
         public static void Sort(this XDocument original)
         {
