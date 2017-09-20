@@ -7,7 +7,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 {
     static class Sorter
     {
-        public static Func<XElement, string, XElement> CorrectFieldName = (e, n) => e;
+        public static Action<XAttribute> CorrectFieldName = a => { };
 
         public static void Sort(this XDocument original)
         {
@@ -28,19 +28,26 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
 
         private static void SortFields(this XElement FieldsElement)
         {
-            IEnumerable<XElement> Fields = FieldsElement.Elements().Select(e => CorrectFieldName(e, "name")).OrderBy(GetName).ToArray();
+            IEnumerable<XElement> Fields = FieldsElement.Elements().Select(e => 
+            {
+                CorrectFieldName(GetNameAttr(e));
+                return e;
+            }).OrderBy(GetName).ToArray();
             foreach (XElement e in Fields) e.Remove();
             FieldsElement.Add(Fields);
         }
 
-        internal static string GetName(XElement elt)
-        {
-            return elt.Attribute("name").Value;
-        }
+        internal static XAttribute GetNameAttr(XElement elt) => elt.Attribute("name");
+        internal static string GetName(XElement elt) => GetNameAttr(elt).Value;
 
         private static void SortMapings(this XElement MappingsElement)
         {
-            IEnumerable<XElement> Mappings = MappingsElement.Elements().Select(e => CorrectFieldName(e, "field")).OrderBy(GetField).ToArray();
+            IEnumerable<XElement> Mappings = MappingsElement.Elements().Select(e =>
+            {
+                CorrectFieldName(GetFieldAttr(e));
+                return e;
+            }).OrderBy(GetField).ToArray();
+
             foreach (XElement e in Mappings)
             {
                 SortMapings(e);
@@ -49,9 +56,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             MappingsElement.Add(Mappings);
         }
 
-        internal static string GetField(XElement elt)
-        {
-            return elt.Attribute("field").Value;
-        }
+        internal static XAttribute GetFieldAttr(XElement elt) => elt.Attribute("field");
+        internal static string GetField(XElement elt) => GetFieldAttr(elt).Value;
     }
 }
