@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PX.Api.ContractBased.Maintenance.Cli.Utils;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace SorterTest
@@ -9,14 +8,22 @@ namespace SorterTest
     [TestClass]
     public class FieldNameCorrectorTest
     {
-        private static XAttribute GetAttribute(string value) => new XAttribute("field", value);
+        private Dictionary<string, string> DataDictionary = new Dictionary<string, string>
+        {
+            { "OrigOrderNbr", "OriginalOrderNbr" },
+            { "VendorCustomer", "VendorOrCustomer" },
+            { "CustomerVendor",  "VendorOrCustomer" }
+        };
 
         [TestMethod]
         public void TestOriginal()
         {
-            XAttribute attr = GetAttribute("OrigOrderNbr");
-            FieldNameCorrector.CorrectAttributeValue(attr);
-            Assert.AreEqual("OriginalOrderNbr", attr.Value);
+            foreach (var pair in DataDictionary)
+            {
+                XAttribute attr = new XAttribute("field", pair.Key);
+                FieldNameCorrector.CorrectAttributeValue(attr);
+                Assert.AreEqual(pair.Value, attr.Value);
+            }
         }
     }
 }
