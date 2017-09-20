@@ -44,7 +44,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
         {
             IEnumerable<XElement> Mappings = MappingsElement.Elements().Select(e =>
             {
-                CorrectFieldName(GetFieldAttr(e));
+                if (e.Name.LocalName == "Mapping") CorrectFieldName(GetFieldAttr(e));
                 return e;
             }).OrderBy(GetField).ToArray();
 
