@@ -12,6 +12,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             {  "CustomerVendor","VendorOrCustomer" },
             {  "ExtPrice","ExtendedPrice" },
             {  "ExtCost","ExtendedCost" },
+            {  "Currency","CurrencyID" },
         };
 
         private static Dictionary<string, string> toReplaceIfMatchSegment = new Dictionary<string, string>
