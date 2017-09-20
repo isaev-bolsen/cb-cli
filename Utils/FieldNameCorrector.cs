@@ -10,6 +10,8 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
         {
             {  "VendorCustomer","VendorOrCustomer" },
             {  "CustomerVendor","VendorOrCustomer" },
+            {  "ExtPrice","ExtendedPrice" },
+            {  "ExtCost","ExtendedCost" },
         };
 
         private static Dictionary<string, string> toReplaceIfMatchSegment = new Dictionary<string, string>
@@ -25,7 +27,6 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             {  "Tran","Transaction" },
             {  "Sub","Subaccount" },
             {  "Beg","Beginning" },
-            {  "Ext","Extended" },
             {  "Descr","Description" },
             {  "Adjg","Adjusting" },
             {  "Adjd","Adjusted" },
