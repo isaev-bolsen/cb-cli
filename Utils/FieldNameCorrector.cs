@@ -16,6 +16,19 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
         {
             {  "Orig","Original" },
             {  "Amt","Amount" },
+            {  "No","Nbr" },
+            {  "Number","Nbr" },
+            {  "Quantity","Qty" },
+            {  "Reference","Ref" },
+            {  "Cury","Currency" },
+            {  "Curr","Currency" },
+            {  "Tran","Transaction" },
+            {  "Sub","Subaccount" },
+            {  "Beg","Beginning" },
+            {  "Ext","Extended" },
+            {  "Descr","Description" },
+            {  "Adjg","Adjusting" },
+            {  "Adjd","Adjusted" },
         };
 
         private static Regex SplitByCamel = new Regex(@"(?<=[A-Z])(?=[A-Z][a-z]) | (?<=[^A-Z])(?=[A-Z]) | (?<=[A-Za-z])(?=[^A-Za-z])",

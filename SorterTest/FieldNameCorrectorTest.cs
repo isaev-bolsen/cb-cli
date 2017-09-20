@@ -12,7 +12,8 @@ namespace SorterTest
         {
             { "OrigOrderNbr", "OriginalOrderNbr" },
             { "VendorCustomer", "VendorOrCustomer" },
-            { "CustomerVendor",  "VendorOrCustomer" }
+            { "CustomerVendor",  "VendorOrCustomer" },
+            { "CardAccountNo",  "CardAccountNbr" }
         };
 
         [TestMethod]
