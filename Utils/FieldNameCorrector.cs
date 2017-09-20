@@ -29,6 +29,9 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             {  "Descr","Description" },
             {  "Adjg","Adjusting" },
             {  "Adjd","Adjusted" },
+            {  "Numberof","NbrOf" },
+            {  "Lengthof","LengthOf" },
+            {  "Dayof","DayOf" },
         };
 
         private static Regex SplitByCamel = new Regex(@"(?<=[A-Z])(?=[A-Z][a-z]) | (?<=[^A-Z])(?=[A-Z]) | (?<=[A-Za-z])(?=[^A-Za-z])",
