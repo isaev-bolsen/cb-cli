@@ -35,6 +35,7 @@ namespace PX.Api.ContractBased.Maintenance.Cli.Utils
             {  "Numberof","NbrOf" },
             {  "Lengthof","LengthOf" },
             {  "Dayof","DayOf" },
+            {  "External","Ext" },
         };
 
         private static Regex SplitByCamel = new Regex(@"(?<=[A-Z])(?=[A-Z][a-z]) | (?<=[^A-Z])(?=[A-Z]) | (?<=[A-Za-z])(?=[^A-Za-z])",
